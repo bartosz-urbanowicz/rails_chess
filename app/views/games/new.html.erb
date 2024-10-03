@@ -1,0 +1,28 @@
+<h1>New Game</h1>
+
+<%= form_with model: @game do |form| %>
+  <div>
+    <%= form.label :rated %><br>
+    <%= form.check_box :rated %>
+  </div>
+
+  <div>
+    <%= form.label :time_base %><br>
+    <%= form.number_field :time_base, in: 60.0..3600.0, step: 10.0 %>
+    <% @game.errors.full_messages_for(:time_base).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :time_increment %><br>
+    <%= form.number_field :time_increment, in: 1.0..10.0, step: 1.0 %>
+    <% @game.errors.full_messages_for(:time_increment).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
