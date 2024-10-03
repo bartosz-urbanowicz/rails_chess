@@ -3,5 +3,4 @@ class Game < ApplicationRecord
     validates :rated, presence: true
     validates :time_base, presence: true
     validates :time_increment, presence: true
-    validates :winner, presence: true
 end

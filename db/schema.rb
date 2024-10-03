@@ -13,6 +13,7 @@
 ActiveRecord::Schema[7.1].define(version: 2024_09_26_084237) do
   create_table "games", force: :cascade do |t|
     t.boolean "rated"
+    t.boolean "live"
     t.integer "time_base"
     t.integer "time_increment"
     t.integer "result"
@@ -33,6 +34,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_26_084237) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "games", "players", column: "black_player_id"
-  add_foreign_key "games", "players", column: "white_player_id"
+  add_foreign_key "games", "users", column: "black_player_id"
+  add_foreign_key "games", "users", column: "white_player_id"
 end
