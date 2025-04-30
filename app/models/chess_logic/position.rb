@@ -4,18 +4,18 @@ module ChessLogic
 
     def self.charToPiece 
       {
-        'P' => ChessLogic::Piece::Pawn.new(color: "white"),
-        'N' => ChessLogic::Piece::Knight.new(color: "white"),
-        'B' => ChessLogic::Piece::Bishop.new(color: "white"),
-        'R' => ChessLogic::Piece::Rook.new(color: "white"),
-        'Q' => ChessLogic::Piece::Queen.new(color: "white"),
-        'K' => ChessLogic::Piece::King.new(color: "white"),
-        'p' => ChessLogic::Piece::Pawn.new(color: "black"),
-        'n' => ChessLogic::Piece::Knight.new(color: "black"),
-        'b' => ChessLogic::Piece::Bishop.new(color: "black"),
-        'r' => ChessLogic::Piece::Rook.new(color: "black"),
-        'q' => ChessLogic::Piece::Queen.new(color: "black"),
-        'k' => ChessLogic::Piece::King.new(color: "black"),
+        'P' => ChessLogic::Pawn.new(color: "white"),
+        'N' => ChessLogic::Knight.new(color: "white"),
+        'B' => ChessLogic::Bishop.new(color: "white"),
+        'R' => ChessLogic::Rook.new(color: "white"),
+        'Q' => ChessLogic::Queen.new(color: "white"),
+        'K' => ChessLogic::King.new(color: "white"),
+        'p' => ChessLogic::Pawn.new(color: "black"),
+        'n' => ChessLogic::Knight.new(color: "black"),
+        'b' => ChessLogic::Bishop.new(color: "black"),
+        'r' => ChessLogic::Rook.new(color: "black"),
+        'q' => ChessLogic::Queen.new(color: "black"),
+        'k' => ChessLogic::King.new(color: "black"),
       }
     end
 
@@ -44,6 +44,34 @@ module ChessLogic
       20.times { board.append(:border) }
       newPosition.board = board
       newPosition
+    end
+
+    def saveToFen()
+      fen = ""
+      12.times do |i|
+        empty_counter = 0
+        10.times do |j|
+          piece = board[(i * 10) + j]
+          if piece == :border
+            next
+          elsif piece
+            if empty_counter > 0
+              fen <<  empty_counter.to_s
+              empty_counter = 0
+            end
+            fen << piece.symbol
+          else
+            empty_counter += 1
+          end
+        end
+        if empty_counter > 0
+          fen <<  empty_counter.to_s
+        end
+        if i > 1 && i < 9
+          fen << "/"
+        end
+      end
+      fen
     end
 
     # for use in console

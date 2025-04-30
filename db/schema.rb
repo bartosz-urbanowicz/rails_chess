@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_26_084237) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_30_135447) do
   create_table "games", force: :cascade do |t|
     t.boolean "rated"
     t.boolean "live"
@@ -22,6 +22,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_26_084237) do
     t.integer "black_player_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "position"
     t.index ["black_player_id"], name: "index_games_on_black_player_id"
     t.index ["white_player_id"], name: "index_games_on_white_player_id"
   end
