@@ -1,14 +1,14 @@
 class GamesController < ApplicationController
     def index
-        @games = Game.all
+      @games = Game.all
     end
 
     def show
-        @game = Game.find(params[:id])
+      @game = Game.find(params[:id])
     end
 
     def new
-        @game = Game.new
+      @game = Game.new
     end
 
     def create
@@ -22,18 +22,23 @@ class GamesController < ApplicationController
     end
 
     def play
-        @game = Game.find(params[:id])
-        @position = ChessLogic::Position.newFromFen(@game.position)
+      @game = Game.find(params[:id])
+      @position = ChessLogic::Position.newFromFen(@game.position)
     end
     
     def possible_moves
       @game = Game.find(params[:id])
       @position = ChessLogic::Position.newFromFen(@game.position)
-      @possible_moves = @position.board[45].generateMoves
+      @possible_moves = @position.board[params[:field].to_i].generateMoves(field: params[:field].to_i, board: @position.board)
+    end
+
+    def move
+      @game = Game.find(params[:id])
+      @game.position.make_move(start_field: params[:start_field], end_field: params[:end_field])
     end
 
     private
     def game_params
-        params.require(:game).permit(:rated, :time_base, :time_increment)
+      params.require(:game).permit(:rated, :time_base, :time_increment)
     end
 end

@@ -91,5 +91,11 @@ module ChessLogic
       end
     end
 
+    def make_move(start_field:, end_field:)
+      piece = self.board[start_field]
+      self.board[start_field] = nil
+      self.board[end_field] = piece
+    end
+
   end
 end

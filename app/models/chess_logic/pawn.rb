@@ -9,21 +9,25 @@ module ChessLogic
 
     def generateMoves(field:, board:)
       moves = []
-      endField = self.color == "white" ? field + DIRECTIONS[:up] : field + DIRECTIONS[:down]
-      if board[endField] == nil
-        moves <<  ChessLogic::Move.new(startField: field, endField: endField)
+      move_direction = self.color == "white" ? DIRECTIONS[:up] : DIRECTIONS[:down]
+      end_field = field + move_direction
+      if board[end_field] == nil
+        moves <<  ChessLogic::Move.new(start_field: field, end_field: end_field)
+        if board[end_field + move_direction] == nil
+          moves << ChessLogic::Move.new(start_field: field, end_field: end_field + move_direction)
+        end
       end
-      takeFields = []
+      take_fields = []
       if self.color == "white"
-        takeFields << field + DIRECTIONS[:leftUp] 
-        takeFields << field + DIRECTIONS[:rightUp] 
+        take_fields << field + DIRECTIONS[:leftUp] 
+        take_fields << field + DIRECTIONS[:rightUp] 
       else
-        takeFields << field + DIRECTIONS[:leftDown] 
-        takeFields << field + DIRECTIONS[:rightDown] 
+        take_fields << field + DIRECTIONS[:leftDown] 
+        take_fields << field + DIRECTIONS[:rightDown] 
       end
-      takeFields.each do |takeField|
-        if board[takeField] != :border && board[takeField] != nil
-          moves << ChessLogic::Move.new(startField: field, endField: takeField)
+      take_fields.each do |take_field|
+        if board[take_field] != :border && board[take_field] != nil
+          moves << ChessLogic::Move.new(start_field: field, end_field: take_field)
         end
       end
       moves
