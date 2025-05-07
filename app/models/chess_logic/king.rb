@@ -9,12 +9,13 @@ module ChessLogic
       moves = []
       offsets = [-10, -9, 1, 11, 10, 9, -1, -11]
       offsets.each do |offset|
-        endField = field + offset
-        target = board[endField]
-        if (target == nil || target.color != @color) && target != :border 
-          moves << ChessLogic::Move.new(startField: field, endField: field + offset)
+        end_field = field + offset
+        target = board[end_field]
+        if target != :border && (target == nil || target.color != @color)
+          moves << ChessLogic::Move.new(start_field: field, end_field: field + offset)
         end
       end
+      moves
     end
   end
 end

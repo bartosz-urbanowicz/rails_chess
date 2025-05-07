@@ -18,7 +18,9 @@
             <%= link_to @position.board[field_number].symbol, possible_moves_game_path(@game, field: field_number) %>
           <% end %>
           <% if @possible_moves.map(&:end_field).include? field_number %>
-            <div class="bg-gray-500 w-4 h-4 rounded-full"></div>
+            <%= link_to play_game_path(@game, start_field: @field, end_field: field_number) do %>
+              <div class="bg-gray-500 w-4 h-4 rounded-full"></div>
+            <% end %>
           <% end %>
         </div>
       <% end %>

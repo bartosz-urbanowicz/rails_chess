@@ -24,17 +24,16 @@ class GamesController < ApplicationController
     def play
       @game = Game.find(params[:id])
       @position = ChessLogic::Position.newFromFen(@game.position)
+      if params[:start_field] && params[:end_field]
+        @position.make_move(start_field: params[:start_field].to_i, end_field: params[:end_field].to_i)
+      end
     end
     
     def possible_moves
+      @field = params[:field]
       @game = Game.find(params[:id])
       @position = ChessLogic::Position.newFromFen(@game.position)
       @possible_moves = @position.board[params[:field].to_i].generateMoves(field: params[:field].to_i, board: @position.board)
-    end
-
-    def move
-      @game = Game.find(params[:id])
-      @game.position.make_move(start_field: params[:start_field], end_field: params[:end_field])
     end
 
     private

@@ -18,8 +18,14 @@ module ChessLogic
       current_field = field + direction
       moves = []
       until board[current_field] != nil
-        moves << ChessLogic::Move.new(startField: field, endField: current_field)
+        moves << ChessLogic::Move.new(start_field: field, end_field: current_field)
         current_field = current_field + direction
+      end
+      if board[current_field] != :border
+        piece = board[current_field]
+        if piece.color != self.color
+          moves << ChessLogic::Move.new(start_field: field, end_field: current_field)
+        end
       end
       moves
     end
