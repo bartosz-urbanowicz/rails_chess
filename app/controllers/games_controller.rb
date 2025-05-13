@@ -26,7 +26,7 @@ class GamesController < ApplicationController
       @position = ChessLogic::Position.newFromFen(@game.position)
       if params[:start_field] && params[:end_field]
         @position.make_move(start_field: params[:start_field].to_i, end_field: params[:end_field].to_i)
-        @game.position = @position.saveToFen
+        @game.update(position: @position.saveToFen)
       end
     end
     
