@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_05_13_144440) do
+ActiveRecord::Schema[7.1].define(version: 2025_05_14_141107) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  # Custom types defined in this database.
+  # Note that some types may not work with other database engines. Be careful if changing database.
+  create_enum "game_status", ["waiting", "active", "finished"]
+
   create_table "games", force: :cascade do |t|
     t.boolean "rated"
-    t.boolean "live"
     t.integer "time_base"
     t.integer "time_increment"
     t.integer "result"
@@ -23,6 +29,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_13_144440) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "position"
+    t.enum "status", default: "waiting", null: false, enum_type: "game_status"
     t.index ["black_player_id"], name: "index_games_on_black_player_id"
     t.index ["white_player_id"], name: "index_games_on_white_player_id"
   end

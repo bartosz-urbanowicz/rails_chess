@@ -3,23 +3,23 @@
 <div><%= @game.time_base %></div>
 <div><%= @game.time_increment %></div>
 
-<div class="flex flex-col" >
+<div class="chessboard" >
   <% 8.times do |i|%>
-    <div class="flex">
+    <div class="row">
       <% 8.times do |j|%>
         <div 
           class="
             <%= (i % 2) == (j % 2) ? 
-              "bg-stone-200 text-black" : 
-              "bg-stone-900 text-white" 
-            %> w-[4em] h-[4em] flex justify-center items-center" >
+              "white" : 
+              "black" 
+            %> field" >
           <% field_number = 20 + (i * 10) + j + 1 %>
           <% if @position.board[field_number] != nil && @position.board[field_number] != :border %>
             <%= link_to @position.board[field_number].symbol, possible_moves_game_path(@game, field: field_number), data: {turbo_action: "replace"} %>
           <% end %>
           <% if @possible_moves.map(&:end_field).include? field_number %>
             <%= link_to play_game_path(@game, start_field: @field, end_field: field_number), data: {turbo_action: "replace"} do %>
-              <div class="bg-gray-500 w-4 h-4 rounded-full"></div>
+              <div class="move-indicator"></div>
             <% end %>
           <% end %>
         </div>

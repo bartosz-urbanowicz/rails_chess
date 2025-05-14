@@ -1,0 +1,29 @@
+.chessboard {
+  display: flex;
+  flex-direction: column;
+  .row {
+    display: flex;
+    .white {
+      background-color: #cabcaa;
+      color: black;
+    }
+    .black {
+      background-color: #27170b;
+      color: white;
+    }
+    .field {
+      width: 4rem;
+      height: 4rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .move-indicator {
+    background-color: #636363;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 100%;
+  }
+}

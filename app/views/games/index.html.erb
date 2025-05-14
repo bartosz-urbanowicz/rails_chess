@@ -1,6 +1,39 @@
 <div>
-    <h2>Games</h2>
-    <section>
-        <h3>Active</h3>
-    </section>
+  <h2>Games</h2>
+  <section>
+    <h3>Active</h3>
+    <% @games.active.each do |game| %>
+      <%= link_to play_game_path(game) do %>
+        <%# <div>
+          <span>Oponent: </span><%= game.created_at
+        </div> %>
+        <div>
+          <span>Date: </span><%= game.created_at %>
+        </div>
+      <% end %>
+    <% end %>
+  </section>
+  <section>
+    <h3>Finished</h3>
+    <% @games.finished.each do |game| %>
+      <div>
+        <%= game.created_at %>
+      </div>
+    <% end %>
+  </section>
+  <section>
+    <h3>Available</h3>
+    <h4>White</h4>
+    <% @games_available_as_white.each do |game| %>
+      <div>
+        <%= game.created_at %>
+      </div>
+    <% end %>
+    <h4>Black</h4>
+    <% @games_available_as_black.each do |game| %>
+      <div>
+        <%= game.created_at %>
+      </div>
+    <% end %>
+  </section>
 </div>

@@ -2,7 +2,9 @@ class GamesController < ApplicationController
   before_action :authenticate_user!
 
     def index
-      @games = Game.all
+      @games = current_user.games
+      @games_available_as_white = Game.all.active.available_as_white
+      @games_available_as_black = Game.all.active.available_as_black
     end
 
     def show

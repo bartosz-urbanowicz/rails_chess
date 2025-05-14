@@ -10,10 +10,11 @@ module ChessLogic
     def generateMoves(field:, board:)
       moves = []
       move_direction = self.color == "white" ? DIRECTIONS[:up] : DIRECTIONS[:down]
+      starting_rank =  self.color == "white" ? 8 : 3
       end_field = field + move_direction
       if board[end_field] == nil
         moves <<  ChessLogic::Move.new(start_field: field, end_field: end_field)
-        if board[end_field + move_direction] == nil
+        if board[end_field + move_direction] == nil && field / 10 == starting_rank
           moves << ChessLogic::Move.new(start_field: field, end_field: end_field + move_direction)
         end
       end
@@ -26,7 +27,7 @@ module ChessLogic
         take_fields << field + DIRECTIONS[:rightDown] 
       end
       take_fields.each do |take_field|
-        if board[take_field] != :border && board[take_field] != nil
+        if board[take_field] != :border && board[take_field] != nil && board[take_field].color != self.color
           moves << ChessLogic::Move.new(start_field: field, end_field: take_field)
         end
       end

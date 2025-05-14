@@ -4,6 +4,7 @@
 @use "pages/log_in";
 @use "components/button";
 @use "components/text_field";
+@use "components/chessboard";
 
 body {
   background-color: #222121;
@@ -32,4 +33,9 @@ menu {
 ::file-selector-button {
   margin: 0;
   padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
