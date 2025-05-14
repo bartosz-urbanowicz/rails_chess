@@ -1,0 +1,35 @@
+// Entry point for your Sass build
+
+@use "pages/sign_up";
+@use "pages/log_in";
+@use "components/button";
+@use "components/text_field";
+
+body {
+  background-color: #222121;
+  color: white;
+}
+
+ol,
+ul,
+menu {
+  list-style: none;
+}
+
+*,
+::after,
+::before,
+::backdrop,
+::file-selector-button {
+  box-sizing: border-box;
+  border: 0 solid;
+}
+
+*,
+::after,
+::before,
+::backdrop,
+::file-selector-button {
+  margin: 0;
+  padding: 0;
+}
