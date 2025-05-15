@@ -5,7 +5,7 @@ class GameMovesController < ApplicationController
     @game = Game.find(params[:game_id])
     @move = @game.game_moves.build(move_params)
     @move.save
-    GameChannel.broadcast_to(@game, @move)
+    GameChannel.broadcast_to(@game, "new move")
     @position = ChessLogic::Position.newFromFen(@game.position)
     @position.make_move(start_field: move_params[:start_field].to_i, end_field: move_params[:end_field].to_i)
     @game.update(position: @position.saveToFen)

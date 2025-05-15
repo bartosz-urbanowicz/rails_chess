@@ -3,6 +3,7 @@
 <div><%= @game.time_base %></div>
 <div><%= @game.time_increment %></div>
 
+
 <div class="chessboard" >
   <% 8.times do |i|%>
     <div class="row">
@@ -24,5 +25,10 @@
       <% end %>
     </div>
   <% end %>
-  <% console %>
 </div>
+
+<div>
+  <div>White: <%= @white_player.username %></div>
+  <div>Black: <%= @black_player.username %></div>
+</div>
+<%# <% console %>

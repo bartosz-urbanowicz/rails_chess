@@ -29,6 +29,8 @@ class GamesController < ApplicationController
       @field = params[:field]
       @game = Game.find(params[:id])
       @position = ChessLogic::Position.newFromFen(@game.position)
+      @white_player = @game.white_player
+      @black_player = @game.black_player
       if params[:field]
         @possible_moves = @position
                           .board[params[:field].to_i]
