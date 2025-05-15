@@ -7,7 +7,6 @@ class Game < ApplicationRecord
         active: "active",
         finished: "finished"
       }      
-    enum :result, [ "white_won", "black_won", "draw" ]
     enum result: {
         white_won: "white_won",
         black_won: "black_won",

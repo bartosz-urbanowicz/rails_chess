@@ -1,0 +1,66 @@
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-rails
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - "bin/bundle"
+    - "db/schema.rb"
+    - "docker/**/*"
+    - "tmp/**/*"
+    - "db/migrate/*"
+    - "config/routes.rb"
+    - "vendor/**/*"
+
+Layout/LineLength:
+  Max: 120
+  Exclude:
+    - "config/**/*.rb"
+    - Gemfile
+  AllowedPatterns: ['^ *# ']
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 30
+
+Metrics/ClassLength:
+  Enabled: false
+
+Rails/RenderInline:
+  Enabled: false
+
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - development
+    - test
+    - staging
+    - qa
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/BlockLength:
+  AllowedMethods:
+    [
+      "describe",
+      "context",
+      "shared_examples",
+      "it",
+      "before",
+      "namespace",
+      "define",
+      "factory",
+      "let",
+      "each"
+    ]
+  Exclude:
+    - 'app/admin/**/*.rb'
+    - "config/**/*.rb"
+
+Naming/InclusiveLanguage:
+  Enabled: false

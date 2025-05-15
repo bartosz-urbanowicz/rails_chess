@@ -4,7 +4,7 @@ class ConvertResultToEnumInGames < ActiveRecord::Migration[7.1]
       CREATE TYPE game_result AS ENUM ('white_won', 'black_won', 'draw');
     SQL
 
-    change_column :games, :result, :game_result, using: "result::game_result"
+    change_column :games, :result, :game_result, using: 'NULL::game_result'
   end
 
   def down

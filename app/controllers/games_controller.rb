@@ -38,7 +38,9 @@ class GamesController < ApplicationController
       @field = params[:field]
       @game = Game.find(params[:id])
       @position = ChessLogic::Position.newFromFen(@game.position)
-      @possible_moves = @position.board[params[:field].to_i].generateMoves(field: params[:field].to_i, board: @position.board)
+      @possible_moves = @position
+                        .board[params[:field].to_i]
+                        .generateMoves(field: params[:field].to_i, board: @position.board)
     end
 
     private
