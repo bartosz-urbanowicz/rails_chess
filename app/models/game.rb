@@ -1,6 +1,7 @@
 class Game < ApplicationRecord
     belongs_to :white_player, class_name: "User"
     belongs_to :black_player, class_name: "User"
+    has_many :game_moves
 
     enum status: {
         waiting: "waiting",
@@ -16,8 +17,9 @@ class Game < ApplicationRecord
     validates :time_base, presence: true
     validates :time_increment, presence: true
 
-    scope :active, -> {where(live: true)}
-    scope :finished, -> {where(live: false)}
+    scope :active, -> {where(status: "active")}
+    scope :finished, -> {where(status: "finished")}
+    scope :waiting, -> {where(status: "waiting")}
     scope :available_as_white, -> {where(white_player_id: nil)}
     scope :available_as_black, -> {where(black_player_id: nil)}
 end

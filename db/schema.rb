@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_05_14_144316) do
+ActiveRecord::Schema[7.1].define(version: 2025_05_15_121914) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,6 +18,17 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_14_144316) do
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "game_result", ["white_won", "black_won", "draw"]
   create_enum "game_status", ["waiting", "active", "finished"]
+
+  create_table "game_moves", force: :cascade do |t|
+    t.integer "start_field"
+    t.integer "end_field"
+    t.string "type"
+    t.string "side"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "game_id", null: false
+    t.index ["game_id"], name: "index_game_moves_on_game_id"
+  end
 
   create_table "games", force: :cascade do |t|
     t.boolean "rated"
@@ -50,6 +61,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_14_144316) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "game_moves", "games"
   add_foreign_key "games", "users", column: "black_player_id"
   add_foreign_key "games", "users", column: "white_player_id"
 end
