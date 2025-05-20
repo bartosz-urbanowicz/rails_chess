@@ -4,12 +4,14 @@ class GameMovesController < ApplicationController
   def create
     @game = Game.find(params[:game_id])
     @move = @game.game_moves.build(move_params)
-    @move.save
-    GameChannel.broadcast_to(@game, "new move")
-    @position = ChessLogic::Position.newFromFen(@game.position)
-    @position.make_move(start_field: move_params[:start_field].to_i, end_field: move_params[:end_field].to_i)
-    @game.update(position: @position.saveToFen)
-    redirect_to play_game_path(@game)
+    if @move.save
+      @position = ChessLogic::Position.newFromFen(@game.position)
+      @position.make_move(start_field: move_params[:start_field].to_i, end_field: move_params[:end_field].to_i)
+      @game.update(position: @position.saveToFen)
+      head :ok
+    else
+      head :unprocessable_entity
+    end
   end
 
   private

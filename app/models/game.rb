@@ -3,12 +3,24 @@ class Game < ApplicationRecord
     belongs_to :black_player, class_name: "User"
     has_many :game_moves
 
-    enum status: {
+    after_update_commit lambda {
+      broadcast_replace_to("game_#{id}",
+                           partial: "games/chessboard",
+                           locals: {
+                             game: self,
+                             position: ChessLogic::Position.newFromFen(position),
+                             possible_moves: nil,
+                             field: nil
+                           },
+                           target: "chessboard")
+    }
+
+    enum :status, {
         waiting: "waiting",
         active: "active",
         finished: "finished"
       }      
-    enum result: {
+    enum :result, {
         white_won: "white_won",
         black_won: "black_won",
         draw: "draw"

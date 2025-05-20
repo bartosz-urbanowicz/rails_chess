@@ -1,34 +1,17 @@
+<%= turbo_stream_from "game_#{@game.id}" %>
+<%= "game_#{@game.id}" %>
+
 <h1>Play Game</h1>
 <div><%= @game.rated %></div>
 <div><%= @game.time_base %></div>
 <div><%= @game.time_increment %></div>
 
 
-<div class="chessboard" >
-  <% 8.times do |i|%>
-    <div class="row">
-      <% 8.times do |j|%>
-        <div class="<%= (i % 2) == (j % 2) ? "white" : "black" %>  field" >
-          <% field_number = 20 + (i * 10) + j + 1 %>
-          <% if @position.board[field_number] != nil && @position.board[field_number] != :border %>
-            <%= link_to @position.board[field_number].symbol, play_game_path(@game, field: field_number), data: {turbo_action: "replace"} %>
-          <% end %>
-          <% if @possible_moves.present? && @possible_moves.map(&:end_field).include?(field_number) %>
-            <%= button_to game_game_moves_path(@game),
-            method: :post,
-            params: {move: { start_field: @field, end_field: field_number }},
-            form: {data: { turbo_action: "replace" }} do %>
-              <div class="move-indicator"></div>
-            <% end %>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
-</div>
+<%= render partial: "games/chessboard",
+ locals: { game: @game, position: @position, possible_moves: @possible_moves, field: @field } %>
 
 <div>
   <div>White: <%= @white_player.username %></div>
   <div>Black: <%= @black_player.username %></div>
 </div>
-<%# <% console %>
+<% console %>
