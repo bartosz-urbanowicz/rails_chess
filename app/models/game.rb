@@ -9,8 +9,9 @@ class Game < ApplicationRecord
                            locals: {
                              game: self,
                              position: ChessLogic::Position.newFromFen(position),
-                             possible_moves: nil,
-                             field: nil
+                             possible_moves: [],
+                             field: 0,
+                             player_color: position.split[1] == "w" ? "white" : "black"
                            },
                            target: "chessboard")
     }

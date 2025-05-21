@@ -31,6 +31,7 @@ class GamesController < ApplicationController
       @position = ChessLogic::Position.newFromFen(@game.position)
       @white_player = @game.white_player
       @black_player = @game.black_player
+      @player_color = current_user == @white_player ? "white" : "black"
       if params[:field]
         @possible_moves = @position
                           .board[params[:field].to_i]
@@ -38,7 +39,8 @@ class GamesController < ApplicationController
       end
     end
 
-    private
+  private
+
     def game_params
       params.require(:game).permit(:rated, :time_base, :time_increment)
     end

@@ -8,8 +8,12 @@
 
 
 <%= render partial: "games/chessboard",
- locals: { game: @game, position: @position, possible_moves: @possible_moves, field: @field } %>
-
+ locals: { game: @game,
+  position: @position,
+  possible_moves: @possible_moves,
+  field: @field,
+  player_color: @player_color 
+} %>
 <div>
   <div>White: <%= @white_player.username %></div>
   <div>Black: <%= @black_player.username %></div>

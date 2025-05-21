@@ -1,6 +1,12 @@
 module ChessLogic
   class Position
-    attr_accessor :board, :whiteToMove, :castlingRights, :enPassantTarget, :halfMoveClock, :fullMoveCounter, :unmakeHistory
+    attr_accessor :board,
+                  :whiteToMove,
+                  :castlingRights,
+                  :enPassantTarget,
+                  :halfMoveClock, 
+                  :fullMoveCounter, 
+                  :unmakeHistory
 
     def self.charToPiece 
       {
@@ -20,9 +26,9 @@ module ChessLogic
     end
 
     def self.newFromFen(fen)
-      newPosition = Position.new
+      new_position = Position.new
 
-      segments = fen.split(" ")
+      segments = fen.split
       boardFen = segments[0]
       ranks = boardFen.split("/")
       board = []
@@ -31,19 +37,20 @@ module ChessLogic
         board.append(:border)
         rank.each_char do |char|
           number = char.to_i
-          if number != 0
+          if number == 0
+            board.append self.charToPiece[char] || nil
+          else
             number.times do
               board.append(nil)
             end
-          else
-            board.append self.charToPiece[char] || nil
           end
         end
         board.append(:border)
       end
       20.times { board.append(:border) }
-      newPosition.board = board
-      newPosition
+      new_position.board = board
+      new_position.whiteToMove = segments[1] == "w"
+      new_position
     end
 
     def saveToFen()
@@ -71,10 +78,12 @@ module ChessLogic
           fen << "/"
         end
       end
-      fen
+      side_to_move = whiteToMove ? "w" : "b"
+      "#{fen} #{side_to_move}"
     end
 
     # for use in console
+    # rubocop:disable Rails/Output
     def printBoard
       12.times do |i|
         10.times do |j|
@@ -90,11 +99,13 @@ module ChessLogic
         puts
       end
     end
+    # rubocop:enable Rails/Output
 
     def make_move(start_field:, end_field:)
       piece = self.board[start_field]
       self.board[start_field] = nil
       self.board[end_field] = piece
+      self.whiteToMove = !self.whiteToMove
     end
 
   end
